@@ -10,7 +10,7 @@
 <br/>
 <input type="password" id="iv" placeholder="IV" password="true"/>
 <input type="password" id="passphrase" placeholder="Passphrase" password="true"/>
-<script>
+<script type="text/javascript">
 function encrypt(plaintext, passphrase){
   return CryptoJS.AES.encrypt(plaintext, passphrase, {iv:$('#iv')[0].innerHTML}).toString();
 }
