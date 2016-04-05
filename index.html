@@ -1,0 +1,39 @@
+<html>
+<head>
+</head>
+<body>
+<textarea id="crypt" rows="6" cols="40" placeholder="Crypt here"></textarea>
+<textarea id="plaintext" rows="6" cols="40" placeholder="Plaintext here"></textarea>
+<br/>
+<input type="password" id="iv" placeholder="IV" password="true"/>
+<input type="password" id="passphrase" placeholder="Passphrase" password="true"/>
+<script>
+function encrypt(plaintext, passphrase){
+  return CryptoJS.AES.encrypt(plaintext, passphrase, {iv:$('#iv')[0].innerHTML}).toString();
+}
+function decrypt(crypt, passphrase){
+  return CryptoJS.AES.decrypt(crypt, passphrase, {iv:$('#iv')[0].innerHTML}).toString();
+}
+function fillPlainText(){
+	$('#plaintext')[0].innerHTML = decrypt($('#crypt')[0].innerHTML, $('#passphrase')[0].innerHTML, {iv:$('#iv')[0].innerHTML});
+}
+function fillCrypt(){
+	$('#crypt')[0].innerHTML = encrypt($('#plaintext')[0].innerHTML, $('#passphrase')[0].innerHTML, {iv:$('#iv')[0].innerHTML});
+}
+
+$('#passphrase').on('keydown',function(e){
+	fillPlainText();
+});
+$('#iv').on('keydown',function(e){
+	fillPlainText();
+});
+$('#crypt').on('keydown',function(e){
+	fillPlainText();
+});
+$('#plaintext').on('keydown',function(e){
+	fillCrypt();
+});
+
+</script>
+</body>
+</html>
