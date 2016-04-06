@@ -6,12 +6,18 @@
 </head>
 <body>
 <textarea id="crypt" rows="6" cols="40" placeholder="Crypt here"></textarea>
-<div id="decrypted"></div>
+<div id='decrypted'></div>
 <textarea id="plaintext" rows="6" cols="40" placeholder="Plaintext here"></textarea>
-<div id="encrypted"></div>
+<div id='encrypted'></div>
 <br/>
 <input type="password" id="iv" placeholder="IV" password="true"/>
 <input type="password" id="passphrase" placeholder="Passphrase" password="true"/>
+<style>
+	#decrypted, #encrypted{
+	  width: 280px;
+	  height: 2em;
+	}
+</style>
 <script type="text/javascript">
 function encrypt(plaintext, passphrase){
   return CryptoJS.AES.encrypt(plaintext, passphrase, {iv:$('#iv')[0].innerHTML}).toString();
@@ -20,26 +26,27 @@ function decrypt(crypt, passphrase){
   return CryptoJS.AES.decrypt(crypt, passphrase, {iv:$('#iv')[0].innerHTML}).toString();
 }
 function fillPlainText(){
-	$('#decrypted')[0].innerHTML = decrypt($('#crypt')[0].innerHTML, $('#passphrase')[0].innerHTML, {iv:$('#iv')[0].innerHTML});
+	$('#decrypted')[0].innerHTML = decrypt($('#crypt')[0].value, $('#passphrase')[0].value, {iv:$('#iv')[0].value});
 }
 function fillCrypt(){
-	$('#encrypted')[0].innerHTML = encrypt($('#plaintext')[0].innerHTML, $('#passphrase')[0].innerHTML, {iv:$('#iv')[0].innerHTML});
+	$('#encrypted')[0].innerHTML = encrypt($('#plaintext')[0].value, $('#passphrase')[0].value, {iv:$('#iv')[0].value});
 }
 
-$('#passphrase').on('keydown',function(e){
-	fillPlainText();
-	fillCrypt();
-});
-$('#iv').on('keydown',function(e){
-	fillPlainText();
-	fillCrypt();
-});
-$('#crypt').on('keydown',function(e){
+$('#passphrase').keyup(function(e){
 	fillPlainText();
 });
-$('#plaintext').on('keydown',function(e){
+$('#iv').keyup(function(e){
+	fillPlainText();
+});
+$('#crypt').keyup(function(e){
+	fillPlainText();
+});
+$('#plaintext').keyup(function(e){
 	fillCrypt();
 });
+
+alert(CryptoJS.AES.encrypt("abcd","abcd",{iv:"1"}));
+
 
 </script>
 </body>
