@@ -26,7 +26,8 @@ function decrypt(crypt, passphrase){
   return CryptoJS.AES.decrypt(crypt, passphrase, {iv:$('#iv')[0].innerHTML}).toString();
 }
 function fillPlainText(){
-	$('#decrypted').innerHTML = decrypt($('#crypt')[0].value, $('#passphrase')[0].value, {iv:$('#iv')[0].value}).toString(CryptoJS.enc.Utf8);
+	var decrypted = decrypt($('#crypt')[0].value, $('#passphrase')[0].value, {iv:$('#iv')[0].value}).toString(CryptoJS.enc.Utf8);
+	$('#decrypted').text(decrypted); 
 }
 function fillCrypt(){
 	$('#encrypted').text(encrypt($('#plaintext')[0].value, $('#passphrase')[0].value, {iv:$('#iv')[0].value}));
