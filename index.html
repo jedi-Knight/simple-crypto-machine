@@ -26,10 +26,10 @@ function decrypt(crypt, passphrase){
   return CryptoJS.AES.decrypt(crypt, passphrase, {iv:$('#iv')[0].innerHTML}).toString();
 }
 function fillPlainText(){
-	$('#decrypted')[0].innerHTML = decrypt($('#crypt')[0].value, $('#passphrase')[0].value, {iv:$('#iv')[0].value});
+	$('#decrypted').text(decrypt($('#crypt')[0].value, $('#passphrase')[0].value, {iv:$('#iv')[0].value}).toString(CryptoJS.enc.Utf8));
 }
 function fillCrypt(){
-	$('#encrypted')[0].innerHTML = encrypt($('#plaintext')[0].value, $('#passphrase')[0].value, {iv:$('#iv')[0].value});
+	$('#encrypted').text(encrypt($('#plaintext')[0].value, $('#passphrase')[0].value, {iv:$('#iv')[0].value}));
 }
 
 $('#passphrase').keyup(function(e){
